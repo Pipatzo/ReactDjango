@@ -1,0 +1,11 @@
+from usuarios import views
+from django.urls import path
+from django.urls import include, path
+from usuarios.views import *
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+app_name = "app_usuarios"
+
+urlpatterns = [
+    
+]
