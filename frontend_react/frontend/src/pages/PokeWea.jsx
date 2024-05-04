@@ -22,7 +22,6 @@ function PokeWea() {
 
   return (
     <>
-    <Base/>
     <div>
       <h1>Lista de Pokémon</h1>
       {pokemonList ? (

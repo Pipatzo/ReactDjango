@@ -42,3 +42,27 @@ def get_user_data(request):
         # Otros datos que desees devolver
     }
     return Response(data)
+
+
+from django.http import JsonResponse
+import requests
+
+def check_user_exists(request):
+    email = request.GET.get('email')
+    if not email:
+        return JsonResponse({'error': 'Missing email parameter'}, status=400)
+
+    try:
+        api_key = 'JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26'
+        headers = {
+            #'Authorization': f'Bearer {api_key}',
+            'User-Agent': 'React'
+        }
+        response = requests.get(f'https://api.vrchat.cloud/api/1/auth/exists?email={email}', headers=headers)
+        data = response.json()
+        return JsonResponse(data)
+    
+    except Exception as e:
+        print('Error fetching data:', e)
+        return JsonResponse({'error': 'Internal server error'}, status=500)
+

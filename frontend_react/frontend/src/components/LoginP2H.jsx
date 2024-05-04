@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import api from "../api";
 import { useNavigate, Link } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
@@ -12,7 +12,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { toaster } from 'evergreen-ui'
-
+import { Toast } from 'primereact/toast';
 
 
 function Login({ route, method }) {
@@ -25,6 +25,11 @@ function Login({ route, method }) {
     const name = method === "login" ? "Panel P2H" : "Registrar";
 
     const [validated, setValidated] = useState(false);
+
+    const toast = useRef(null);
+
+  
+
 
     const ValidationHandle = (event) => {
         const form = event.currentTarget;
@@ -52,14 +57,16 @@ function Login({ route, method }) {
                 toaster.success('¡Inicio de sesión correctamente!', {
                     description: '¡Bienvenido de nuevo, ' + username + '!', duration: 50,
                 });
+
                 navigate("/");
             } else if (method === "register") {
                 console.log(username, password, password_confirmation)
                 console.log('Respuesta de la API:', res.data);
-
+                toast.current.show({ severity: 'success', summary: '¡Inicio de sesión correctamente!', detail: '¡Bienvenido de nuevo, ' + username + '!' });
                 toaster.success('¡Registro de usuario correctamente!', {
                     description: '¡Se ha creado tu usuario correctamente, ' + username + '!', duration: 50,
                 });
+                
                 navigate("/");
             } else {
                 navigate("/login");
@@ -67,8 +74,10 @@ function Login({ route, method }) {
 
 
         } catch (error) {
+            
             console.error('Error al enviar los datos:', error);
             toaster.danger('Ha ocurrido un error, vuelve a intentarlo.');
+            toast.current.show({severity:'success', summary: 'Success', detail:'Message Content', life: 3000});
         } finally {
             setLoading(false);
         }
@@ -131,14 +140,14 @@ function Login({ route, method }) {
 
                         </Form.Group>
                         <div className="d-flex" style={{ justifyContent: 'center' }}>
-                            <Button severity="danger" style={{paddingInline:'145px' , borderRadius: '12px', display: 'flex', alignItems: 'center' ,textAlign:'center'}} variant="outline-danger" type="submit">
+                            <Button severity="danger" style={{ paddingInline: '145px', borderRadius: '12px', display: 'flex', alignItems: 'center', textAlign: 'center' }} variant="outline-danger" type="submit">
                                 Ingresar {loading && <LoadingIndicator />}</Button>
                         </div>
                     </Form>
                     <div>
                         {method === "login" ? (
-                        
-                        <Link  style={{ borderRadius:'12px'}} to="/register" variant="outline-secondary">Registrar</Link>
+
+                            <Link style={{ borderRadius: '12px' }} to="/register" variant="outline-secondary">Registrar</Link>
 
                         ) :
                             (<Link style={{ borderRadius: '12px' }} to="/login" variant="outline-secondary">Volver al Login</Link>)}

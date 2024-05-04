@@ -9,36 +9,19 @@ import Post from "./pages/Post"
 import ToDo from "./pages/Post"
 import NotFound from "./pages/NotFound"
 import ProtectedRoute from "./components/ProtectedRoute"
+import Navbar from "./components/NavBar"
 
-function Logout() {
-  localStorage.clear()
-  return <Navigate to="/login" />
-}
-
-function RegisterAndLogout() {
-  localStorage.clear()
-  return <Register />
-}
 
 function App() {
   return (
     <div className="container">
+        
       <BrowserRouter>
+      <Navbar/>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Inicio />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/post" element={<Post  />} />
-          <Route path="/PokeWea" element={<PokeWea  />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/register" element={<RegisterAndLogout />} />
-          <Route path="*" element={<NotFound />}></Route>
+        <Route path="/" element={<Inicio />} />
+          <Route path="/post" element={<Post />} />
+          <Route path="/PokeWea" element={<PokeWea />} />
         </Routes>
       </BrowserRouter>
     </div>

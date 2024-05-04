@@ -121,7 +121,6 @@ function Post() {
 
     return (
         <>
-        <Base/>
             <form className="mt-5 mb-3" onSubmit={createTodo}>
                 <div className="input-group">
                     <input

@@ -137,8 +137,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Paginas que permites entrar a django
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "https://28xb06cp-5173.brs.devtunnels.ms",
-]
-CORS_ALLOWED_CREDENTIALS = True
+
+CORS_ALLOW_ALL_ORIGINS = True
+

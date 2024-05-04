@@ -7,5 +7,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 app_name = "app_usuarios"
 
 urlpatterns = [
+     path('api/auth/exists/', views.check_user_exists, name='check_user_exists'),
     
 ]
