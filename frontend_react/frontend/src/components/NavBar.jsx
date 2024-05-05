@@ -17,6 +17,10 @@ const links = [
         name: "PokeWea",
         href: "/pokewea",
     },
+    {
+        name: "Buscar usuario por id",
+        href: "/buscarid",
+    },
 
 
 ];

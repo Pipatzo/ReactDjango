@@ -10,6 +10,7 @@ import ToDo from "./pages/Post"
 import NotFound from "./pages/NotFound"
 import ProtectedRoute from "./components/ProtectedRoute"
 import Navbar from "./components/NavBar"
+import BusacrId from "./pages/BusacarId"
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<Inicio />} />
           <Route path="/post" element={<Post />} />
           <Route path="/PokeWea" element={<PokeWea />} />
+          <Route path="/buscarid" element={<BusacrId />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -8,5 +8,6 @@ app_name = "app_usuarios"
 
 urlpatterns = [
      path('api/auth/exists/', views.check_user_exists, name='check_user_exists'),
+     path('api/obtener-datos-usuario/', views.obtener_datos_usuario, name='datos_usuario'),
     
 ]

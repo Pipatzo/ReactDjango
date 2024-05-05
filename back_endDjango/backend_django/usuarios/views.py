@@ -11,6 +11,9 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
+from django.views.decorators.csrf import csrf_exempt
+import json
+
 
 # User
 class CreateUserView(generics.CreateAPIView):
@@ -18,7 +21,7 @@ class CreateUserView(generics.CreateAPIView):
     serializer_class = serializer.UserSerializer
     permission_classes = [AllowAny]
 
-#TodosApi
+#TodosApisdas
 class TodosApiView(generics.ListCreateAPIView):
     queryset = Todo.objects.all().order_by('-id')
     serializer_class= serializer.TodoSerializer
@@ -65,4 +68,26 @@ def check_user_exists(request):
     except Exception as e:
         print('Error fetching data:', e)
         return JsonResponse({'error': 'Internal server error'}, status=500)
+    
+def obtener_datos_usuario(request):
+    cookie = 'authcookie_d43f0d2a-89e2-4d50-8a10-49d9a416c0da' #request.GET.get('cookie')
+    cookie2 = 'auth='
+    cookiefinal = cookie2+cookie
+    usuario_id = request.GET.get('usuario_id')
+    print(cookie)
 
+    try:
+        api_key = 'JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26'
+        headers = {
+            #'Authorization': f'Bearer {api_key}',
+            'User-Agent': 'React',
+            'Cookie': cookiefinal
+        }
+        response = requests.get(f'https://api.vrchat.cloud/api/1/users/{usuario_id}', headers=headers)
+        data = response.json()
+        return JsonResponse(data)
+    
+    except Exception as e:
+        print('Error fetching data:', e)
+        return JsonResponse({'error': 'Internal server error'}, status=500)
+    
